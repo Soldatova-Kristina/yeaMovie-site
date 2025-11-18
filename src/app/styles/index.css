@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --font-acrom: 'Acrom', sans-serif;
+  --font-bayon: 'Bayon', sans-serif;
+  --color-dark: #FFFF;
+}
+
+@layer base {
+  @font-face {
+    font-family: 'Acrom';
+    src: url('/fonts/Acrom-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Acrom';
+    src: url('/fonts/Acrom-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Acrom';
+    src: url('/fonts/Acrom-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Bayon';
+    src: url('/fonts/Bayon-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  body {
+    @apply font-acrom bg-dark text-white;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply max-w-[1440px] mx-auto px-4 lg:px-8;
+  }
+}
