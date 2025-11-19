@@ -1,5 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import {useState, useEffect} from "react";
+import {getMoviesByQuery} from "@/entities/Movie/model/getMoviesByQuery";
+
 
 export default function SearchResultsPage() {
     const [params] = useSearchParams();
