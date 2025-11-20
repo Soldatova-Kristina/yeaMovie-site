@@ -7,20 +7,22 @@ export default function SearchResultsPage() {
     const [params] = useSearchParams();
     const query = params.get("query") || "";
 
-    const [results, setResults] = useState([]);
+    const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        // TODO: fetch search results for query
+        async function load() {
+            if(!query.trim()) return;
+            const data = await getMoviesByQuery(query);
+            setMovies(data);
+        }
+        load();
     }, [query]);
 
     return (
         <>
-        <div>Результаты поиска</div> 
-        <ul>
-            {results.map((result) => (
-                <li key={result.id}>{result.name}</li>
-            ))}
-        </ul>
+        <h1>Результаты поиска</h1> 
+        
+        <MovieGrid movies={movies}/>
         </>
     );
 }

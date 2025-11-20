@@ -42,7 +42,6 @@ function App() {
                   </Suspense>
             }
           />
-              {/* <Route path="/popular/:category" element={<Popular/>}/> */}
             <Route
                path="/movie/:id"
                element={
