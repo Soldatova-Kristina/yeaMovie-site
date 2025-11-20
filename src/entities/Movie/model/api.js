@@ -1,4 +1,5 @@
 import { requestMovieList } from "./requestMovieList";
+import { apiClient } from "@/shared/api/apiClient";
 
 export async function getRandomMovies(page = 1, limit = 10) {
 
@@ -26,7 +27,7 @@ export async function getMovieById(id) {
     const response = await apiClient.get(`/movie/${id}`);
     return response.data.docs[0];        
   } catch (error) {
-    console.error("Не удалось получить фильм по ID:", error);
+    console.error("Не удалось найти фильм по ID:", error);
     throw error;
   }
 }

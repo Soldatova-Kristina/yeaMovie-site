@@ -1,9 +1,9 @@
 import { Input } from "@/shared/ui/Input";
 import { FiSearch } from "react-icons/fi";
-import { useSearchMovie } from "../../model/useSearchMovie";
+import { useSearchInput } from "../../model/useSearchInput";
 
 const SearchInput = function SearchInput() {
-  const { query, setQuery, submit, manualSubmit } = useSearchMovie();
+  const { query, setQuery, submit, manualSubmit } = useSearchInput();
 
   return (
     <div className="relative w-[400px]">

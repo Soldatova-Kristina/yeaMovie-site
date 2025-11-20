@@ -1,28 +1,20 @@
-import { useSearchParams } from "react-router-dom";
-import {useState, useEffect} from "react";
-import {getMoviesByQuery} from "@/entities/Movie/model/getMoviesByQuery";
+import { useSearchParams } from 'react-router-dom';
+import { useSearchMovies } from '@/features/search-movies';
+import { MovieGrid } from '@/widgets/MovieGrid';
 
+export const SearchResultsPage = () => {
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('query');
+  
+  const { movies, loading, error } = useSearchMovies(query);
 
-export default function SearchResultsPage() {
-    const [params] = useSearchParams();
-    const query = params.get("query") || "";
+  if (loading) return <div>Загрузка...</div>;
+  if (error) return <div>Ошибка: {error.message}</div>;
 
-    const [movies, setMovies] = useState([]);
-
-    useEffect(() => {
-        async function load() {
-            if(!query.trim()) return;
-            const data = await getMoviesByQuery(query);
-            setMovies(data);
-        }
-        load();
-    }, [query]);
-
-    return (
-        <>
-        <h1>Результаты поиска</h1> 
-        
-        <MovieGrid movies={movies}/>
-        </>
-    );
+  return (
+    <div>
+      <h1>Результаты поиска: {query}</h1>
+      <MovieGrid movies={movies} />
+    </div>
+  );
 }

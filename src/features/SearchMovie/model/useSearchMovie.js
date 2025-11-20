@@ -1,26 +1,27 @@
-import { useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { getMoviesByQuery } from '@/entities/Movie';
+import { normalizeMovieData } from '@/entities/Movie/model/selectors';
 
-export function useSearchMovie() {
-    const [query, setQuery] = useState("");
-    const navigate = useNavigate();
+export function useSearchMovies(query) {
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-    function submit (e) {
-    if (e.key === "Enter") {
-        if (!query.trim()) return;
-        navigate(`/search-results?query=${encodeURIComponent(query)}`)
-    }
-    }
-
-    function manualSubmit () {
-        if(!query.trim()) return;
-        navigate(`/search-results?query=${encodeURIComponent(query)}`)
+  useEffect(() => {
+    if (!query?.trim()) {
+      setMovies([]);
+      return;
     }
 
-    return {
-        query,
-        setQuery,
-        submit,
-        manualSubmit
-    }
+    setLoading(true);
+    setError(null);
+
+    getMoviesByQuery(query)
+      .then(rawMovies => rawMovies.map(normalizeMovieData))
+      .then(setMovies)
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, [query]);
+
+  return { movies, loading, error };
 }
