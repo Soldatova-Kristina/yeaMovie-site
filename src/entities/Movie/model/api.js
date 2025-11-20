@@ -15,7 +15,11 @@ export async function getMoviesByQuery(query, page = 1, limit = 10) {
 
    return requestMovieList({
     endpoint: "/movie/search",
-    params: { query, page, limit },
+    params: { 
+      page, 
+      limit,
+      query
+    },
     errorMessage: "фильмы по запросу",
   });
 }

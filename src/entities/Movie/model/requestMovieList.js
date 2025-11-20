@@ -1,15 +1,19 @@
 import { apiClient } from "@/shared/api/apiClient";
 
 export function requestMovieList ({
-    endpoint = "/movie",
-    params = {},
+    endpoint = "/movie/search",
+    params = {
+        query: query,              
+        page: page,
+        limit: limit
+    },
     errorMessage,
 }) {
     return apiClient
-        .get(endpoint, { params })
-        .then(response => response.data.docs)
-        .catch(error => {
-            console.error(`Не удалось найти ${errorMessage}`, error);
-            throw error;
-        });
+    .get(endpoint, { params })
+    .then(res => res.data.docs || [])
+    .catch(err => {
+      console.error(`Ошибка API (${errorMessage}):`, err);
+      throw err;
+    });
 }

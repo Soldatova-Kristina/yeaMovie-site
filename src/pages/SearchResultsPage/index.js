@@ -1,3 +1,3 @@
-import SearchResults from "./ui/SearchResultsPage";
+import SearchResultsPage from "./ui/SearchResultsPage";
 
-export default SearchResults; 
+export default SearchResultsPage; 

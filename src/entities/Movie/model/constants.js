@@ -23,3 +23,15 @@ export const MOVIE_DESCRIPTION_VARIANTS = {
   black: "text-black font-light text-[18px]",
   white: "text-white font-light text-[18px]",
 };
+
+export const BUTTON_VARIANTS = {
+  primary: 'bg-primary hover:bg-primary/90 text-white',
+  secondary: 'bg-transparent border-2 border-white/20 hover:border-white/40 text-white',
+  outlined: 'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white',
+};
+
+export const BUTTON_SIZES = {
+  sm: 'px-4 py-2 text-sm',
+  md: 'px-6 py-3 text-base',
+  lg: 'px-8 py-4 text-lg',
+};
