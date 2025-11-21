@@ -1,7 +1,7 @@
 import { apiClient } from "@/shared/api/apiClient";
 
 export function requestMovieList ({
-    endpoint = "/movie/search",
+    endpoint,
     params = {
         query: query,              
         page: page,

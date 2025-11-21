@@ -12,7 +12,7 @@ export function MoviesGrid({ movies }) {
   return (
     <div className="flex flex-col gap-[50px]">
       {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
+        <MovieCard key={movie.id} variant="search" movie={movie} />
       ))}
     </div>
   );

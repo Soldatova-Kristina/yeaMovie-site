@@ -21,12 +21,12 @@ export const normalizeMovieData = (raw) => {
   const persons = Array.isArray(raw.persons) ? raw.persons : [];
 
   const directors = persons
-    .filter(p => p.enProfession === "director")
+    .filter(p => p.enProfession === "director" || p.profession === "режиссеры")
     .map(p => p.name || p.enName)
     .filter(Boolean);
 
   const actors = persons
-    .filter(p => p.enProfession === "actor")
+    .filter(p => p.enProfession === "actor" || p.profession === "актеры")
     .map(p => p.name || p.enName)
     .filter(Boolean);
 
