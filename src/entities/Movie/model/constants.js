@@ -25,9 +25,9 @@ export const MOVIE_DESCRIPTION_VARIANTS = {
 };
 
 export const BUTTON_VARIANTS = {
-  primary: 'bg-primary hover:bg-primary/90 text-white',
-  secondary: 'bg-transparent border-2 border-white/20 hover:border-white/40 text-white',
-  outlined: 'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white',
+  primary: 'bg-[#FF3D81] hover:bg-[#ed769f] text-white',
+  secondary: 'bg-[#080423] border-2 border-white/20',
+  outlined: 'bg-[#FFFFF] border-2 border-[#FF3D81] text-[#FF3D81] hover:bg-[#FF3D81] hover:text-white',
 };
 
 export const BUTTON_SIZES = {

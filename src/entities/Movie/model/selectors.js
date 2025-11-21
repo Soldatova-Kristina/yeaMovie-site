@@ -53,6 +53,6 @@ export const normalizeMovieData = (raw) => {
     genres,
     countries,
     director: directors,
-    actors: actors.slice(0, 3), 
+    actors: actors.slice(0, 7), 
   };
 };

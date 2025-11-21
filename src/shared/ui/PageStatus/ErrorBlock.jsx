@@ -8,7 +8,6 @@ export function ErrorBlock({
         <p className="text-[#FF3D81] text-[24px] font-medium">
           {title}
         </p>
-
         <p className="text-[#7a7a7a] text-[18px] text-center max-w-[600px]">
           {message}
         </p>

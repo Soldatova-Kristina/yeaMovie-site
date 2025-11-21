@@ -5,12 +5,16 @@ import { MovieMeta } from '../../entities/Movie/ui/MovieMeta';
 // import { MovieRaiting } from '../MovieRaiting';
 import { Button } from '@/shared/ui/Button';
 import { cn } from '@/shared/lib/utils';
+import { useNavigate } from 'react-router-dom';
 
 export function MovieCard({
    movie,
    variant = 'search',
    className
    }) {
+
+  const navigate = useNavigate();
+  
   const {
     id,
     title,
@@ -27,7 +31,6 @@ export function MovieCard({
 
   const isSearchVariant = variant === 'search';
   const isDetailsVariant = variant === 'details';
-
   const posterVariant = isSearchVariant ? 'searchResPoster' : 'detailsPoster';
 
   return (
@@ -46,7 +49,18 @@ export function MovieCard({
       </div>
       <div className="flex-1 flex flex-col">
         <div className="flex items-start justify-between mb-[20px]">
-          <MovieTitle title={title} variant="xl" />
+          <div className="flex items-center gap-[40px]">
+            <MovieTitle title={title} variant="xl" />
+            
+            {isDetailsVariant && (
+              <Button
+                variant="primary"
+                size="sm"
+              >
+                В избранное
+              </Button>
+            )}
+          </div>
 
           <div className="flex flex-col items-end gap-1 flex-shrink-0 ml-4">
             {rating && (
@@ -62,16 +76,6 @@ export function MovieCard({
           </div>
         </div>
 
-        {isDetailsVariant && (
-              <Button
-                variant="primary"
-                size="md"
-                className="bg-[#FF3D81] hover:bg-[#FF3D81]/90 text-white"
-              >
-                В избранное
-              </Button>
-            )}
-
         {description && (
           <MovieDescription
             description={description}
@@ -85,7 +89,7 @@ export function MovieCard({
             О фильме
           </h2>
         )}
-
+        
         <div className="mb-[40px]">
           <MovieMeta
             genre={genres.join(', ')}
@@ -96,25 +100,24 @@ export function MovieCard({
           />
         </div>
 
-         {isSearchVariant && (
+        {isSearchVariant && (
           <div className="flex gap-4 mt-auto">
             <Button
               variant="primary"
               size="md"
-              className="bg-[#FF3D81] hover:bg-[#FF3D81]/90 text-white"
+              onClick={() => navigate(`/movie/${id}`)}
             >
               Смотреть
             </Button>
-            
             <Button
               variant="outlined"
-              size="md"
-              className="border-2 border-[#FF3D81] text-[#FF3D81] hover:bg-[#FF3D81] hover:text-white"
+              size="sm"
             >
               В избранное
             </Button>
           </div>
         )}
+
       </div>
     </div>
   );

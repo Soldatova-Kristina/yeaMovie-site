@@ -29,7 +29,7 @@ export async function getMovieById(id) {
 
    try {
     const response = await apiClient.get(`/movie/${id}`);
-    return response.data.docs[0];        
+    return response.data;        
   } catch (error) {
     console.error("Не удалось найти фильм по ID:", error);
     throw error;

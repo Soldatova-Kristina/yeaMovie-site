@@ -8,7 +8,6 @@ export function MoviesGrid({ movies }) {
       </div>
     );
   }
-
   return (
     <div className="flex flex-col gap-[50px]">
       {movies.map((movie) => (
