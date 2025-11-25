@@ -1,32 +1,20 @@
-import { useState, useEffect } from 'react';
 import { getMoviesByQuery } from '@/entities/Movie/model/api';
 import { normalizeMovieData } from '@/entities/Movie/model/selectors';
+import { useFetchData} from '@/shared/hooks/useFetchData';
 
-export function useSearchMovies(query) {
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    if (!query?.trim()) {
-      setMovies([]);
-      return;
+export function useSearchMovie(query) {
+  const { data: movies, loading, error } = useFetchData(
+    async () => {
+      const rawMovies = await getMoviesByQuery(query);
+      if (!Array.isArray(rawMovies)) return [];
+      return rawMovies.map(normalizeMovieData);
+    },
+    [query],
+    { 
+      skip: !query?.trim(),
+      initialData: []
     }
-
-    setLoading(true);
-    setError(null);
-
-    getMoviesByQuery(query)
-      .then(rawMovies => {
-        if (!Array.isArray(rawMovies)) {
-          return [];
-        }
-        return rawMovies.map(normalizeMovieData);
-      })
-      .then(setMovies)
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, [query]);
+  );
 
   return { movies, loading, error };
 }
