@@ -1,6 +1,6 @@
 import { Input } from "@/shared/ui/Input";
 import { FiSearch } from "react-icons/fi";
-import { useSearchInput } from "../../model/useSearchInput";
+import { useSearchInput } from "@/features/SearchMovie/model/useSearchInput";
 
 const SearchInput = function SearchInput() {
   const { query, setQuery, submit, manualSubmit } = useSearchInput();

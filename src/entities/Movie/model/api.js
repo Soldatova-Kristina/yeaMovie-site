@@ -103,7 +103,17 @@ return requestMovieList({
   });
 }
 
-
+export async function getMovieStills(movieId, page = 1, limit = 10) {
+  return requestMovieList ({
+    endpoint: "/image",
+    params: {
+      movieId: movieId,  
+      page: page,
+      limit: limit,
+    },
+    errorMessage: "кадры из фильма",
+  });
+  }
 
 
 
