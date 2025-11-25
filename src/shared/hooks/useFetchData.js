@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export function useFetchData(fetchFunction, dependencies, options = {}) {
   const { skip = false, initialData = null } = options;

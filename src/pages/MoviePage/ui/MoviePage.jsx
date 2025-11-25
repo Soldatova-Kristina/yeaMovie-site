@@ -4,7 +4,7 @@ import { getMovieById } from "@/entities/Movie/model/api";
 import { normalizeMovieData } from "@/entities/Movie/model/selectors";
 import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
 import { MovieCard } from "@/entities/Movie";
-import { Button } from '@/shared/ui/Button';
+import { Button } from "@/shared/ui/Button";
 
 export default function MoviePage() {
   const { id } = useParams();

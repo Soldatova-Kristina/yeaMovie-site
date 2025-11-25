@@ -1,15 +1,15 @@
-import { MoviePoster } from '../../entities/Movie/ui/MoviePoster';
-import { MovieTitle } from '../../entities/Movie/ui/MovieTitle';
-import { MovieDescription } from '../../entities/Movie/ui/MovieDescription';
-import { MovieMeta } from '../../entities/Movie/ui/MovieMeta';
-// import { MovieRaiting } from '../MovieRaiting';
-import { Button } from '@/shared/ui/Button';
-import { cn } from '@/shared/lib/utils';
-import { useNavigate } from 'react-router-dom';
+import { MoviePoster } from "../../entities/Movie/ui/MoviePoster";
+import { MovieTitle } from "../../entities/Movie/ui/MovieTitle";
+import { MovieDescription } from "../../entities/Movie/ui/MovieDescription";
+import { MovieMeta } from "../../entities/Movie/ui/MovieMeta";
+// import { MovieRaiting } from "../MovieRaiting";
+import { Button } from "@/shared/ui/Button";
+import { cn } from "@/shared/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 export function MovieCard({
    movie,
-   variant = 'search',
+   variant = "search",
    className
    }) {
 
@@ -29,14 +29,14 @@ export function MovieCard({
     actors = [],
   } = movie;
 
-  const isSearchVariant = variant === 'search';
-  const isDetailsVariant = variant === 'details';
-  const posterVariant = isSearchVariant ? 'searchResPoster' : 'detailsPoster';
+  const isSearchVariant = variant === "search";
+  const isDetailsVariant = variant === "details";
+  const posterVariant = isSearchVariant ? "searchResPoster" : "detailsPoster";
 
   return (
     <div
       className={cn(
-        'flex flex-row gap-[50px] bg-[#ffffff] rounded-[10px] p-[30px]',
+        "flex flex-row gap-[50px] bg-[#ffffff] rounded-[10px] p-[30px]",
         className
       )}
     >
@@ -92,11 +92,11 @@ export function MovieCard({
         
         <div className="mb-[40px]">
           <MovieMeta
-            genre={genres.join(', ')}
-            country={countries.join(', ')}
+            genre={genres.join(", ")}
+            country={countries.join(", ")}
             year={year}
-            director={director.join(', ')}
-            actors={actors.join(', ')}
+            director={director.join(", ")}
+            actors={actors.join(", ")}
           />
         </div>
 

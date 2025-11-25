@@ -1,4 +1,4 @@
-import { MovieCard } from '@/entities/Movie';
+import { MovieCard } from "@/entities/Movie";
 
 export function MoviesGrid({ movies }) {
   if (!movies || movies.length === 0) {

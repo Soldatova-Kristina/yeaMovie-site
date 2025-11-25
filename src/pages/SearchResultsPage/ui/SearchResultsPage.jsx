@@ -1,11 +1,11 @@
-import { useSearchParams } from 'react-router-dom';
-import { useSearchMovie } from '@/features/SearchMovie/model/useSearchMovie';
-import { MoviesGrid } from '@/widgets/MoviesGrid';
-import { ErrorAndLoadingSection } from '@/shared/ui/PageStatus';
+import { useSearchParams } from "react-router-dom";
+import { useSearchMovie } from "@/features/SearchMovie/model/useSearchMovie";
+import { MoviesGrid } from "@/widgets/MoviesGrid";
+import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
 
 export default function SearchResultsPage() {
   const [searchParams] = useSearchParams();
-  const query = searchParams.get('query');
+  const query = searchParams.get("query");
   const { movies, loading, error } = useSearchMovie(query);
   return (
     <div className="min-h-screen bg-white">

@@ -1,4 +1,4 @@
-import { LoadingBlock, ErrorBlock } from './index';
+import { LoadingBlock, ErrorBlock } from "./index";
 
 export function ErrorAndLoadingSection({ loading, error, children }) {
   if (loading) return <LoadingBlock />;

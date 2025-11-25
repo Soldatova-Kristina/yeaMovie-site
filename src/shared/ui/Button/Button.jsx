@@ -1,14 +1,14 @@
-import { cn } from '@/shared/lib/utils'
-import { BUTTON_VARIANTS, BUTTON_SIZES } from '@/entities/Movie/model/constants'
+import { cn } from "@/shared/lib/utils"
+import { BUTTON_VARIANTS, BUTTON_SIZES } from "@/entities/Movie/model/constants"
 
 export const Button = ({ 
   children, 
-  variant = 'primary', 
-  size = 'md',
+  variant = "primary", 
+  size = "md",
   className,
   ...props 
 }) => {
-  const baseStyles = 'rounded-full font-medium transition-all duration-200';
+  const baseStyles = "rounded-full font-medium transition-all duration-200";
   
   return (
     <button

@@ -1,6 +1,6 @@
-import { lazy, Suspense } from 'react';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import Layout from '@/shared/ui/Layout';
+import { lazy, Suspense } from "react";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import Layout from "@/shared/ui/Layout";
 
 function PageLoader () {
   return (
@@ -13,11 +13,11 @@ function PageLoader () {
   );
 }
 
-const MainPage = lazy(() => import('@/pages/MainPage'));
-const FilmsByCategory = lazy(() => import('@/pages/FilmsByCategory'));
-const SearchResultsPage = lazy(() => import('@/pages/SearchResultsPage'));
-const MoviePage = lazy(() => import('@/pages/MoviePage'));
-// const Popular = lazy(() => import('@/pages/Popular'));
+const MainPage = lazy(() => import("@/pages/MainPage"));
+const FilmsByCategory = lazy(() => import("@/pages/FilmsByCategory"));
+const SearchResultsPage = lazy(() => import("@/pages/SearchResultsPage"));
+const MoviePage = lazy(() => import("@/pages/MoviePage"));
+// const Popular = lazy(() => import("@/pages/Popular"));
 
 
 function App() {
