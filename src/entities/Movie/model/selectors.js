@@ -56,3 +56,24 @@ export const normalizeMovieData = (raw) => {
     actors: actors.slice(0, 7), 
   };
 };
+
+export const normalizeStillsData = (raw) => {
+if (!raw || typeof raw !== "object") {
+
+  return {
+    id: null, 
+    url: MOVIE_FALLBACK_POSTER,
+    previewUrl: MOVIE_FALLBACK_POSTER,
+    movieId: null,
+    type: null,
+  }
+   }
+   
+  return {
+  id: raw._id || raw.id,
+  url: raw.url || MOVIE_FALLBACK_POSTER,
+  previewUrl: raw.previewUrl || raw.url || MOVIE_FALLBACK_POSTER,
+  movieId: raw.movieId,
+  type: raw.type,
+}
+}
