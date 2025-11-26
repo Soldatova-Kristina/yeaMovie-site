@@ -109,6 +109,7 @@ export function MovieCard({
             <Button
               variant="outlined"
               size="sm"
+              onClick={() => navigate(`/movie/${id}`)}
             >
               В избранное
             </Button>
