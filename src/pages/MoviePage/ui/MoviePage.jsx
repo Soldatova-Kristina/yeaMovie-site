@@ -5,6 +5,7 @@ import { useFetchData } from "@/shared/hooks/useFetchData";
 import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
 import { MovieCard } from "@/widgets/MovieCard";
 import { MovieStillsGallery } from "@/widgets/MovieStillsGallery";
+import { ArrowLink } from "@/shared/ui/ArrowLink";
 
 export default function MoviePage() {
   const { id } = useParams();
@@ -21,6 +22,9 @@ export default function MoviePage() {
     <div className="min-h-screen bg-white">
       <div className="container-custom py-[80px]">
         <ErrorAndLoadingSection loading={loading} error={error}>
+          <ArrowLink back direction="left">
+            Назад
+          </ArrowLink>
           {movie && <MovieCard variant="details" movie={movie} />}
           <MovieStillsGallery movieTitle={movie?.title} movieId={id} />
         </ErrorAndLoadingSection>

@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import { useSearchMovie } from "@/features/SearchMovie/model/useSearchMovie";
 import { MoviesGridVertical } from "@/widgets/MoviesGridVertical";
 import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
+import { ArrowLink } from "@/shared/ui/ArrowLink";
 
 export default function SearchResultsPage() {
   const [searchParams] = useSearchParams();
@@ -14,6 +15,9 @@ export default function SearchResultsPage() {
           Результаты поиска
         </h1>
         <ErrorAndLoadingSection loading={loading} error={error}>
+          <ArrowLink back direction="left">
+            Назад
+          </ArrowLink>
           <MoviesGridVertical movies={movies} />
         </ErrorAndLoadingSection>
       </div>

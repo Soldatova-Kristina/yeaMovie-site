@@ -34,7 +34,13 @@ export function MovieStillsGallery({ movieId, movieTitle, showAll = false }) {
               Кадры из фильма
             </h2>
           </div>
-
+          {!showAll && stills.length >= 6 && (
+            <div className="flex justify-end mb-[20px]">
+              <ArrowLink to={`/movie/${movieId}/stills`} direction="right">
+                Смотреть всё
+              </ArrowLink>
+            </div>
+          )}
           <div className="grid grid-cols-3 gap-x-[15px] gap-y-[15px] mb-[30px]">
             {filledStills.map((still, index) => (
               <MovieStills
@@ -44,14 +50,6 @@ export function MovieStillsGallery({ movieId, movieTitle, showAll = false }) {
               />
             ))}
           </div>
-
-          {!showAll && stills.length >= 6 && (
-            <div className="flex justify-end">
-              <ArrowLink to={`/movie/${movieId}/stills`} direction="right">
-                Смотреть всё
-              </ArrowLink>
-            </div>
-          )}
         </section>
       )}
     </ErrorAndLoadingSection>

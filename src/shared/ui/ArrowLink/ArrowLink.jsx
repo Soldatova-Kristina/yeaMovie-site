@@ -1,11 +1,25 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export function ArrowLink({ to, children, direction = "right", className }) {
+export function ArrowLink({ 
+  to, 
+  children, 
+  direction = "right", 
+  className,
+  back = false,
+ }) {
+  
+  const navigate = useNavigate();
   const isRight = direction === "right";
-
+  const handleClick = () => {
+    if (back) {
+      navigate(-1);
+    }
+  };
+  
   return (
     <Link 
-      to={to}
+      to={back? "#" : to}
+      onClick={handleClick}
       className={`text-[#0f0a33] text-[18px] font-medium hover:underline flex items-center gap-2 ${className}`}
     >
       {!isRight && (
