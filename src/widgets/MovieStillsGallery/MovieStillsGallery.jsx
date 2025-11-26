@@ -1,32 +1,33 @@
-import { Link } from "react-router-dom";
 import { MovieStills } from "@/entities/Movie/ui/MovieStills";
 import { normalizeStillsData } from "@/entities/Movie/model/selectors";
 import { getMovieStills } from "@/entities/Movie/model/api";
 import { useFetchData } from "@/shared/hooks/useFetchData";
 import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
+import { ArrowLink } from "@/shared/ui/ArrowLink";
 
 export function MovieStillsGallery({ movieId, movieTitle, showAll = false }) {
   const limit = showAll ? 21 : 6;
-  const { data: stills, loading, error } = useFetchData(
+  
+  const { data: stills = [], loading, error } = useFetchData(
     async () => {
       if (!movieId) return [];
 
-    const images = await getMovieStills(movieId, 1, limit);
+      const images = await getMovieStills(movieId, 1, limit);
+      return images.map(normalizeStillsData);
+    },
+    [movieId, showAll],
+    { initialData: [] }
+  );
 
-    return images.map(normalizeStillsData);
-  },
-  [movieId, showAll],
-  { initialData: [] }
-);
-    const placeholders = Array(Math.max(0, limit - stills.length)).fill({});
-    const filledStills = [
-      ...stills, 
-      ...placeholders.map(normalizeStillsData),
-    ]
+  const placeholders = Array(Math.max(0, limit - stills.length)).fill({});
+  const filledStills = [
+    ...stills, 
+    ...placeholders.map(normalizeStillsData),
+  ];
 
   return (
     <ErrorAndLoadingSection loading={loading} error={error}>
-          {!stills || stills.length === 0 ? null : (
+      {!stills || stills.length === 0 ? null : (
         <section className="mb-[60px]">
           <div className="flex justify-center mb-[30px]">
             <h2 className="text-[#ffffff] text-[24px] font-medium bg-[#0f0a33] rounded-[50px] px-[40px] py-[12px]">
@@ -46,27 +47,9 @@ export function MovieStillsGallery({ movieId, movieTitle, showAll = false }) {
 
           {!showAll && stills.length >= 6 && (
             <div className="flex justify-end">
-              <Link
-                to={`/movie/${movieId}/stills`}
-                className="text-[#0f0a33] text-[18px] font-medium hover:underline flex items-center gap-2"
-              >
+              <ArrowLink to={`/movie/${movieId}/stills`} direction="right">
                 Смотреть всё
-                <svg
-                  width="8"
-                  height="12"
-                  viewBox="0 0 8 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 1L6 6L1 11"
-                    stroke="#0f0a33"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
+              </ArrowLink>
             </div>
           )}
         </section>
