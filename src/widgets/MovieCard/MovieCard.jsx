@@ -1,8 +1,9 @@
-import { MoviePoster } from "../../entities/Movie/ui/MoviePoster";
-import { MovieTitle } from "../../entities/Movie/ui/MovieTitle";
-import { MovieDescription } from "../../entities/Movie/ui/MovieDescription";
-import { MovieMeta } from "../../entities/Movie/ui/MovieMeta";
+import { MoviePoster } from "@/entities/Movie/ui/MoviePoster";
+import { MovieTitle } from "@/entities/Movie/ui/MovieTitle";
+import { MovieDescription } from "@/entities/Movie/ui/MovieDescription";
+import { MovieMeta } from "@/entities/Movie/ui/MovieMeta";
 import { Button } from "@/shared/ui/Button";
+import { useFavorites } from "@/entities/Favorites";  
 import { cn } from "@/shared/lib/utils";
 import { useNavigate } from "react-router-dom";
 
@@ -10,9 +11,9 @@ export function MovieCard({
    movie,
    variant = "search",
    className
-   }) {
-
+}) {
   const navigate = useNavigate();
+  const { toggleFavorite, isFavorite } = useFavorites();
   
   const {
     id,
@@ -27,6 +28,12 @@ export function MovieCard({
     director = [],
     actors = [],
   } = movie;
+
+  const isFav = isFavorite(id);
+  
+  const handleFavoriteClick = () => {
+    toggleFavorite(id); 
+  };
 
   const isSearchVariant = variant === "search";
   const isDetailsVariant = variant === "details";
@@ -53,10 +60,11 @@ export function MovieCard({
             
             {isDetailsVariant && (
               <Button
-                variant="primary"
+                variant="outlined"
                 size="sm"
+                onClick={handleFavoriteClick}
               >
-                В избранное
+                {isFav ? "В избранном" : "В избранное"}
               </Button>
             )}
           </div>
@@ -88,6 +96,7 @@ export function MovieCard({
             О фильме
           </h2>
         )} 
+        
         <div className="mb-[40px]">
           <MovieMeta
             genre={genres.join(", ")}
@@ -97,6 +106,7 @@ export function MovieCard({
             actors={actors.join(", ")}
           />
         </div>
+
         {isSearchVariant && (
           <div className="flex gap-4 mt-auto">
             <Button
@@ -109,9 +119,9 @@ export function MovieCard({
             <Button
               variant="outlined"
               size="sm"
-              onClick={() => navigate(`/movie/${id}`)}
+              onClick={handleFavoriteClick}
             >
-              В избранное
+              {isFav ? "В избранном" : "В избранное"}
             </Button>
           </div>
         )}

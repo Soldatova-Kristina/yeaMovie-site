@@ -1,8 +1,8 @@
 import { lazy, Suspense } from "react";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Layout from "@/shared/ui/Layout";
 
-function PageLoader () {
+function PageLoader() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex flex-col items-center gap-4">
@@ -17,61 +17,68 @@ const MainPage = lazy(() => import("@/pages/MainPage"));
 const FilmsByCategory = lazy(() => import("@/pages/FilmsByCategory"));
 const SearchResultsPage = lazy(() => import("@/pages/SearchResultsPage"));
 const MoviePage = lazy(() => import("@/pages/MoviePage"));
+const FavoritesPage = lazy(() => import("@/pages/FavoritesPage"));
 // const Popular = lazy(() => import("@/pages/Popular"));
-
 
 function App() {
   return (
     <>
-    <Router>
+      <Router>
         <Routes>
-           <Route element={<Layout/>}>
-             <Route
-                path="/"
-                element={
-                  <Suspense fallback={<PageLoader />}>
-                    <MainPage />
-                  </Suspense>
-            }
-          />
+          <Route element={<Layout />}>
             <Route
-               path="/films-by-category"
-               element={
-                 <Suspense fallback={<PageLoader />}>
-                    <FilmsByCategory />
-                  </Suspense>
-            }
-          />
+              path="/"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  <MainPage />
+                </Suspense>
+              }
+            />
             <Route
-               path="/movie/:id"
-               element={
-                 <Suspense fallback={<PageLoader />}>
-                    <MoviePage />
-                  </Suspense>
-            }
-          />
+              path="/films-by-category"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  <FilmsByCategory />
+                </Suspense>
+              }
+            />
             <Route
-               path="/search-results"
-               element={
-                 <Suspense fallback={<PageLoader />}>
-                    <SearchResultsPage />
-                  </Suspense>
-            }
-          />
-
-            {/* <Route 
-               path="/popular/:category" 
-               element={
-                 <Suspense fallback={<PageLoader />}>
-                    <PopularPage />
-                  </Suspense>
+              path="/movie/:id"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  <MoviePage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/search-results"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  <SearchResultsPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/favorites"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  <FavoritesPage />
+                </Suspense>
+              }
+            />
+          </Route>
+          {/* <Route 
+            path="/popular/:category" 
+            element={
+              <Suspense fallback={<PageLoader />}>
+                <PopularPage />
+              </Suspense>
             }
           /> */}
-           </Route >
         </Routes>
-    </Router>
+      </Router>
     </>
-  )
+  );
 }
-   
-export default App
+
+export default App;
