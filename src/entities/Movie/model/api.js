@@ -104,16 +104,13 @@ return requestMovieList({
 }
 
 export async function getMovieStills(movieId, page = 1, limit = 10) {
-  return requestMovieList ({
+  const response = await requestMovieList({
     endpoint: "/image",
-    params: {
-      movieId: movieId,  
-      page: page,
-      limit: limit,
-    },
+    params: { movieId, page, limit },
     errorMessage: "кадры из фильма",
   });
-  }
+  return Array.isArray(response) ? response : []
+}
 
 
 

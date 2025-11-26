@@ -2,7 +2,6 @@ import { MoviePoster } from "../../entities/Movie/ui/MoviePoster";
 import { MovieTitle } from "../../entities/Movie/ui/MovieTitle";
 import { MovieDescription } from "../../entities/Movie/ui/MovieDescription";
 import { MovieMeta } from "../../entities/Movie/ui/MovieMeta";
-// import { MovieRaiting } from "../MovieRaiting";
 import { Button } from "@/shared/ui/Button";
 import { cn } from "@/shared/lib/utils";
 import { useNavigate } from "react-router-dom";
@@ -88,8 +87,7 @@ export function MovieCard({
           <h2 className="text-[#0f0a33] text-[32px] font-medium mb-[20px]">
             О фильме
           </h2>
-        )}
-        
+        )} 
         <div className="mb-[40px]">
           <MovieMeta
             genre={genres.join(", ")}
@@ -99,7 +97,6 @@ export function MovieCard({
             actors={actors.join(", ")}
           />
         </div>
-
         {isSearchVariant && (
           <div className="flex gap-4 mt-auto">
             <Button
@@ -117,7 +114,6 @@ export function MovieCard({
             </Button>
           </div>
         )}
-
       </div>
     </div>
   );

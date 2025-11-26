@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useSearchMovie } from "@/features/SearchMovie/model/useSearchMovie";
-import { MoviesGrid } from "@/widgets/MoviesGrid";
+import { MoviesGridVertical } from "@/widgets/MoviesGridVertical";
 import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
 
 export default function SearchResultsPage() {
@@ -14,7 +14,7 @@ export default function SearchResultsPage() {
           Результаты поиска
         </h1>
         <ErrorAndLoadingSection loading={loading} error={error}>
-          <MoviesGrid movies={movies} />
+          <MoviesGridVertical movies={movies} />
         </ErrorAndLoadingSection>
       </div>
     </div>

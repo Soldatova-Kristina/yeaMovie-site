@@ -1,6 +1,6 @@
-import { MovieCard } from "@/entities/Movie";
+import { MovieCard } from "@/widgets/MovieCard";
 
-export function MoviesGrid({ movies }) {
+export function MoviesGridVertical({ movies }) {
   if (!movies || movies.length === 0) {
     return (
       <div className="flex items-center justify-center py-20">

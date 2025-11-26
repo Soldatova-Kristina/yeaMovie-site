@@ -2,11 +2,7 @@ import { apiClient } from "@/shared/api/apiClient";
 
 export function requestMovieList ({
     endpoint,
-    params = {
-        query: query,              
-        page: page,
-        limit: limit
-    },
+    params = { },
     errorMessage,
 }) {
     return apiClient
