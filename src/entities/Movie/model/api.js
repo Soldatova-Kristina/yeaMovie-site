@@ -33,17 +33,12 @@ export async function getMovieById(id, { signal } = {}) {
     const response = await apiClient.get(`/movie/${id}`, { signal });
     return response.data;
   } catch (error) {
-    if (
-      error.name === "CanceledError" ||
-      error.code === "ERR_CANCELED" ||
-      error.name === "AbortError"
-    ) {
-      return;
-    }
+  if (error.name === "CanceledError" || error.code === "ERR_CANCELED") return;
+  if (error.name === "AbortError") return;
 
-    console.error("Не удалось найти фильм по ID:", error);
-    throw error;
-  }
+  console.error("Не удалось найти фильм по ID:", error.message);
+  throw error;
+}
 }
 
 export async function getPopularMovies(

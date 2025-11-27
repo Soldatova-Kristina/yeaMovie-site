@@ -13,7 +13,7 @@ export function requestMovieList ({
       if (err.name === "AbortError" || err.name === "CanceledError") {
       return;
       }
-      console.error(`Не удалось найти (${errorMessage}):`, err);
-      throw err;
-    });
+  console.error(`Не удалось найти (${errorMessage}): ${err.message}`);
+  throw err;
+});
 }
