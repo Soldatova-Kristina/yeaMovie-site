@@ -22,7 +22,7 @@ export default function Header() {
         >
           <span className="text-[16px]">Избранное</span>
           {favCount > 0 && (
-            <span className="bg-[#FF3D81] text-white text-[12px] font-medium px-2 py-1 rounded-full min-w-[20px] text-center">
+            <span className="bg-[#FF3D81] text-white text-[12px] font-medium px-2 py-1 rounded-full min-w-[50px] text-center">
               {favCount}
             </span>
           )}
