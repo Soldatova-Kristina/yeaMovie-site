@@ -1,16 +1,17 @@
 import { requestMovieList } from "./requestMovieList";
 import { apiClient } from "@/shared/api/apiClient";
 
-export async function getRandomMovies(page = 1, limit = 10) {
+export async function getRandomMovies(page = 1, limit = 10, { signal }) {
 
    return requestMovieList({
     endpoint: "/movie/random",
     params: { page, limit },
     errorMessage: "рандомный фильм",
+    signal,
   });
 }
 
-export async function getMoviesByQuery(query, page = 1, limit = 10) {
+export async function getMoviesByQuery(query, page = 1, limit = 10, { signal }) {
    if (!query || !query.trim()) return Promise.resolve([]);
 
    return requestMovieList({
@@ -21,22 +22,32 @@ export async function getMoviesByQuery(query, page = 1, limit = 10) {
       query
     },
     errorMessage: "фильмы по запросу",
+    signal,
   });
 }
 
-export async function getMovieById(id) {
-   if (!id) return null;
+export async function getMovieById(id, { signal } = {}) {
+  if (!id) return null;
 
-   try {
-    const response = await apiClient.get(`/movie/${id}`);
-    return response.data;        
+  try {
+    const response = await apiClient.get(`/movie/${id}`, { signal });
+    return response.data;
   } catch (error) {
+
+    if (error.name === "CanceledError" || error.code === "ERR_CANCELED") {
+      return; 
+    }
+
+    if (error.name === "AbortError") {
+      return;
+    }
+
     console.error("Не удалось найти фильм по ID:", error);
     throw error;
   }
 }
 
-export async function getPopularMovies (page = 1, limit = 10) {
+export async function getPopularMovies (page = 1, limit = 10, { signal }) {
 
     return requestMovieList({
         endpoint: "/movie",
@@ -49,10 +60,11 @@ export async function getPopularMovies (page = 1, limit = 10) {
             sortType: "-1",
         },
         errorMessage: "популярные фильмы",
+        signal,
     });
 }
 
-export async function getPopularSeries (page = 1, limit = 10) {
+export async function getPopularSeries (page = 1, limit = 10, { signal }) {
 
     return requestMovieList({
         endpoint: "/movie",
@@ -65,6 +77,7 @@ export async function getPopularSeries (page = 1, limit = 10) {
             sortType: "-1",
         },
         errorMessage: "популярные сериалы",
+        signal,
     });
 }
 
@@ -78,6 +91,7 @@ export function getMoviesByFilters({
     year,
     ratingFrom,
     ratingTo,
+    signal,
 }) {
 const params = {};
 
@@ -100,14 +114,16 @@ return requestMovieList({
     endpoint: "/movie",
     params,
     errorMessage: "фильмы по вашему запросу",
+    signal,
   });
 }
 
-export async function getMovieStills(movieId, page = 1, limit = 10) {
+export async function getMovieStills(movieId, page = 1, limit = 10, { signal }) {
   const response = await requestMovieList({
     endpoint: "/image",
     params: { movieId, page, limit },
     errorMessage: "кадры из фильма",
+    signal,
   });
   return Array.isArray(response) ? response : []
 }

@@ -12,7 +12,7 @@ export function MovieStillsGallery({ movieId, movieTitle, showAll = false }) {
     async () => {
       if (!movieId) return [];
 
-      const images = await getMovieStills(movieId, 1, limit);
+      const images = await getMovieStills(movieId, 1, limit , { signal });
       return images.map(normalizeStillsData);
     },
     [movieId, showAll],

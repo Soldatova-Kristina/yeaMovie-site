@@ -1,48 +1,66 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-export function useFetchData(fetchFunction, dependencies, options = {}) {
-  const { skip = false, initialData = null } = options;
-  
+const cache = new Map ();
+
+export function useFetchData(fetchFunction, dependencies = [], options = {}) {
+ 
   const [data, setData] = useState(initialData);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(!skip); 
+  const [loading, setLoading] = useState(!initialData); 
+  const abortControllerRef = useRef(null);
+
+  const { cacheTime = 10 * 60 * 1000, initialData = null } = options;
+  const cacheKey = JSON.stringify(fetchFunction.toString() + JSON.stringify(dependencies));
 
   useEffect(() => {
-    if (skip) {
-      setLoading(false);
-      setData(initialData);
-      return;
-    }
+     let isMounted = true;
 
-    let cancelled = false;
+     async function load() {
+      setError(null);
 
-    async function load() {
-      try {
-        setLoading(true);
-        setError(null);
-        
-        const result = await fetchFunction();
-        
-        if (!cancelled) {
-          setData(result);
-        }
-      } catch (err) {
-        if (!cancelled) {
-          setError(err);
-        }
-      } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
+      const cachedData = cache.get(cacheKey);
+      const now = Date.now();
+
+      if (cachedData && now - cachedData.timestamp < cacheTime) {
+        setData(cachedData.data);
+        setLoading(false);
+        revalidate();
+        return;
       }
+      await revalidate();
+     }
+
+     async function revalidate() {
+      setLoading(true);
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+      abortControllerRef.current = new AbortController();
+      
+     try {
+      const result = await fetchFunction();
+      if (!isMounted) return 
+      cache.set(cacheKey, {
+        data: result,
+        timestamp: Date.now(),
+      })
+      setData(result);
+     } catch (err) {
+      if (err.name === "AbortError") return;
+      if (isMounted) setError(err);
+     } finally {
+      if (isMounted) setLoading(false);
+     }
     }
+    
+     load();
 
-    load();
-
-    return () => {
-      cancelled = true;
-    };
-  }, dependencies);
-
-  return { data, loading, error };
+     return() => { 
+      isMounted = false;
+      if(abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+     };
+  }, deps);
+  return { data, loading, error}
 }

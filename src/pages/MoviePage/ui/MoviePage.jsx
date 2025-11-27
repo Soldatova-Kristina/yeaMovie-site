@@ -11,12 +11,10 @@ export default function MoviePage() {
   const { id } = useParams();
 
   const { data: movie, loading, error } = useFetchData(
-    async () => {
-      const data = await getMovieById(id);
-      return normalizeMovieData(data);
-    },
-    [id]
-  );
+  ({ signal }) => 
+    getMovieById(id, { signal }).then(normalizeMovieData),
+  [id]
+);
 
   return (
     <div className="min-h-screen bg-white">

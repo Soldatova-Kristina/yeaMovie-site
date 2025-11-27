@@ -3,7 +3,7 @@ import { MovieTitle } from "@/entities/Movie/ui/MovieTitle";
 import { MovieDescription } from "@/entities/Movie/ui/MovieDescription";
 import { MovieMeta } from "@/entities/Movie/ui/MovieMeta";
 import { Button } from "@/shared/ui/Button";
-import { useFavorites } from "@/entities/Favorites";  
+import { useFavorites } from "@/entities/Favorites/model/useFavorites";  
 import { cn } from "@/shared/lib/utils";
 import { useNavigate } from "react-router-dom";
 

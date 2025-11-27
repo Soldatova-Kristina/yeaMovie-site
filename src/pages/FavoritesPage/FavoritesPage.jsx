@@ -1,4 +1,4 @@
-import { useFavorites } from "@/entities/Favorites";
+import { useFavorites } from "@/entities/Favorites/model/useFavorites";
 import { useFetchData } from "@/shared/hooks/useFetchData";
 import { getMovieById } from "@/entities/Movie/model/api";
 import { normalizeMovieData } from "@/entities/Movie/model/selectors";
@@ -9,17 +9,17 @@ import { ArrowLink } from "@/shared/ui/ArrowLink";
 export default function FavoritesPage() {
   const { favorites } = useFavorites();
 
-  const { data: movies = [], loading, error } = useFetchData(
-    async () => {
-      if (favorites.length === 0) return [];
-      
+    const { data: movies = [], loading, error } = useFetchData(
+    ({ signal }) => {
+      if (favorites.length === 0) return Promise.resolve([]);
+
       const moviePromises = favorites.map(id => 
-        getMovieById(id).then(normalizeMovieData)
+        getMovieById(id, { signal }).then(normalizeMovieData)
       );
-      
+
       return Promise.all(moviePromises);
     },
-    [favorites.join(",")],
+    [favorites],
     { initialData: [] }
   );
 
