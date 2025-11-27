@@ -1,22 +1,22 @@
 import { SearchInput } from "../../../features/SearchMovie/ui/SearchInput";
 import { Logo } from "@/shared/ui/Logo";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useFavorites } from "@/entities/Favorites/model/useFavorites";
 
 export default function Header() {
-    const { favorites } = useFavorites();
-    const favCount = favorites.length;
+  const { favorites } = useFavorites();
+  const favCount = favorites.length;
 
-    return (
-        <header className="bg-[#080423] w-full">
-            <div className="flex max-w-[1440px] h-[80px] justify-center items-center px-4 pl-[92px]">
-                <div>
-                   <Logo />
-                </div>
-                <div className="ml-[124px] mr-[590px] relative">
-                    <SearchInput />
-                </div>
-                {/* <Link 
+  return (
+    <header className="bg-[#080423] w-full">
+      <div className="flex max-w-[1440px] h-[80px] justify-center items-center px-4 pl-[92px]">
+        <div className="flex h-[80px] items-center">
+          <Logo />
+        </div>
+        <div className="mx-auto relative">
+          <SearchInput />
+        </div>
+        <Link 
           to="/favorites" 
           className="ml-auto mr-[92px] text-white hover:text-gray-300 transition-colors flex items-center gap-2"
         >
@@ -26,8 +26,8 @@ export default function Header() {
               {favCount}
             </span>
           )}
-        </Link> */}
-            </div>
-        </header>
-    )
+        </Link>
+      </div>
+    </header>
+  );
 }
