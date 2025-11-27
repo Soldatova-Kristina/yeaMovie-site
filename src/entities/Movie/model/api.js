@@ -91,6 +91,8 @@ export async function getMoviesByFilters({
   year,
   ratingFrom,
   ratingTo,
+  sortField = "rating.kp",
+  sortOrder = "desc",
   signal,
 }) {
   const params = {};
@@ -104,11 +106,14 @@ export async function getMoviesByFilters({
     params.year = `${yearFrom}-${yearTo}`;
   }
 
-  if (ratingFrom && ratingTo)
+  if (ratingFrom && ratingTo) {
     params["rating.kp"] = `${ratingFrom}-${ratingTo}`;
+  }
 
   params.page = page;
   params.limit = limit;
+  params.sortField = sortField;
+  params.sortType = sortOrder === "asc" ? "1" : "-1";
 
   return requestMovieList({
     endpoint: "/movie",
