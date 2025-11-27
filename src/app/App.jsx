@@ -18,7 +18,7 @@ const FilmsByCategory = lazy(() => import("@/pages/FilmsByCategory"));
 const SearchResultsPage = lazy(() => import("@/pages/SearchResultsPage"));
 const MoviePage = lazy(() => import("@/pages/MoviePage"));
 const FavoritesPage = lazy(() => import("@/pages/FavoritesPage"));
-// const Popular = lazy(() => import("@/pages/Popular"));
+const PopularPage = lazy(() => import("@/pages/PopularPage"));
 
 function App() {
   return (
@@ -66,15 +66,15 @@ function App() {
                 </Suspense>
               }
             />
+            <Route
+              path="/popular/:category"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  <PopularPage />
+                </Suspense>
+              }
+            />
           </Route>
-          {/* <Route 
-            path="/popular/:category" 
-            element={
-              <Suspense fallback={<PageLoader />}>
-                <PopularPage />
-              </Suspense>
-            }
-          /> */}
         </Routes>
       </Router>
     </>
