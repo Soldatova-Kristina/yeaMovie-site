@@ -9,15 +9,15 @@ export function MovieStillsGallery({ movieId, movieTitle, showAll = false }) {
   const limit = showAll ? 21 : 6;
   
   const { data: stills = [], loading, error } = useFetchData(
-    async () => {
-      if (!movieId) return [];
+  ({ signal }) => {
+    if (!movieId) return Promise.resolve([]);
 
-      const images = await getMovieStills(movieId, 1, limit , { signal });
-      return images.map(normalizeStillsData);
-    },
-    [movieId, showAll],
-    { initialData: [] }
-  );
+    return getMovieStills(movieId, 1, limit, { signal })
+      .then(images => images.map(normalizeStillsData));
+  },
+  [movieId, showAll],
+  { initialData: [] }
+);
 
   const placeholders = Array(Math.max(0, limit - stills.length)).fill({});
   const filledStills = [

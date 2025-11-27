@@ -1,9 +1,8 @@
 import { requestMovieList } from "./requestMovieList";
 import { apiClient } from "@/shared/api/apiClient";
 
-export async function getRandomMovies(page = 1, limit = 10, { signal }) {
-
-   return requestMovieList({
+export async function getRandomMovies(page = 1, limit = 10, { signal } = {}) {
+  return requestMovieList({
     endpoint: "/movie/random",
     params: { page, limit },
     errorMessage: "рандомный фильм",
@@ -11,16 +10,17 @@ export async function getRandomMovies(page = 1, limit = 10, { signal }) {
   });
 }
 
-export async function getMoviesByQuery(query, page = 1, limit = 10, { signal }) {
-   if (!query || !query.trim()) return Promise.resolve([]);
+export async function getMoviesByQuery(
+  query,
+  page = 1,
+  limit = 10,
+  { signal } = {}
+) {
+  if (!query || !query.trim()) return Promise.resolve([]);
 
-   return requestMovieList({
+  return requestMovieList({
     endpoint: "/movie/search",
-    params: { 
-      page, 
-      limit,
-      query
-    },
+    params: { page, limit, query },
     errorMessage: "фильмы по запросу",
     signal,
   });
@@ -33,12 +33,11 @@ export async function getMovieById(id, { signal } = {}) {
     const response = await apiClient.get(`/movie/${id}`, { signal });
     return response.data;
   } catch (error) {
-
-    if (error.name === "CanceledError" || error.code === "ERR_CANCELED") {
-      return; 
-    }
-
-    if (error.name === "AbortError") {
+    if (
+      error.name === "CanceledError" ||
+      error.code === "ERR_CANCELED" ||
+      error.name === "AbortError"
+    ) {
       return;
     }
 
@@ -47,70 +46,76 @@ export async function getMovieById(id, { signal } = {}) {
   }
 }
 
-export async function getPopularMovies (page = 1, limit = 10, { signal }) {
-
-    return requestMovieList({
-        endpoint: "/movie",
-        params: {
-            page,
-            limit,
-            type: "movie",
-            "rating.kp": "6-10",
-            sortField: "votes.kp",
-            sortType: "-1",
-        },
-        errorMessage: "популярные фильмы",
-        signal,
-    });
-}
-
-export async function getPopularSeries (page = 1, limit = 10, { signal }) {
-
-    return requestMovieList({
-        endpoint: "/movie",
-        params: {
-            page,
-            limit,
-            type: "tv-series",
-            "rating.kp": "6-10",
-            sortField: "votes.kp",
-            sortType: "-1",
-        },
-        errorMessage: "популярные сериалы",
-        signal,
-    });
-}
-
-export function getMoviesByFilters({
-    page = 1, 
-    limit = 10, 
-    genre,
-    country, 
-    yearFrom, 
-    yearTo,
-    year,
-    ratingFrom,
-    ratingTo,
+export async function getPopularMovies(
+  page = 1,
+  limit = 10,
+  { signal } = {}
+) {
+  return requestMovieList({
+    endpoint: "/movie",
+    params: {
+      page,
+      limit,
+      type: "movie",
+      "rating.kp": "6-10",
+      sortField: "votes.kp",
+      sortType: "-1",
+    },
+    errorMessage: "популярные фильмы",
     signal,
-}) {
-const params = {};
-
-if (genre) params["genres.name"] = genre;
-
-if (country) params["countries.name"] = country;
-
-if (year) {
-  params.year = year;
-} else if (yearFrom && yearTo) {
-  params.year = `${yearFrom}-${yearTo}`;
+  });
 }
 
-if (ratingFrom && ratingTo) params["rating.kp"] = `${ratingFrom}-${ratingTo}`;
+export async function getPopularSeries(
+  page = 1,
+  limit = 10,
+  { signal } = {}
+) {
+  return requestMovieList({
+    endpoint: "/movie",
+    params: {
+      page,
+      limit,
+      type: "tv-series",
+      "rating.kp": "6-10",
+      sortField: "votes.kp",
+      sortType: "-1",
+    },
+    errorMessage: "популярные сериалы",
+    signal,
+  });
+}
 
-params.page = page;
-params.limit = limit;
+export async function getMoviesByFilters({
+  page = 1,
+  limit = 10,
+  genre,
+  country,
+  yearFrom,
+  yearTo,
+  year,
+  ratingFrom,
+  ratingTo,
+  signal,
+}) {
+  const params = {};
 
-return requestMovieList({
+  if (genre) params["genres.name"] = genre;
+  if (country) params["countries.name"] = country;
+
+  if (year) {
+    params.year = year;
+  } else if (yearFrom && yearTo) {
+    params.year = `${yearFrom}-${yearTo}`;
+  }
+
+  if (ratingFrom && ratingTo)
+    params["rating.kp"] = `${ratingFrom}-${ratingTo}`;
+
+  params.page = page;
+  params.limit = limit;
+
+  return requestMovieList({
     endpoint: "/movie",
     params,
     errorMessage: "фильмы по вашему запросу",
@@ -118,15 +123,13 @@ return requestMovieList({
   });
 }
 
-export async function getMovieStills(movieId, page = 1, limit = 10, { signal }) {
+export async function getMovieStills(movieId, page = 1, limit = 10, { signal } = {}) {
   const response = await requestMovieList({
     endpoint: "/image",
     params: { movieId, page, limit },
     errorMessage: "кадры из фильма",
     signal,
   });
-  return Array.isArray(response) ? response : []
+
+  return Array.isArray(response) ? response : [];
 }
-
-
-
