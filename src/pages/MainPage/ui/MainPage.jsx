@@ -1,14 +1,28 @@
 import { useState } from "react";
-import { getPopularMovies, getPopularSeries } from "@/entities/Movie/model/api";
+import { 
+  getPopularMovies, 
+  getPopularSeries, 
+  getRandomMovies 
+} from "@/entities/Movie/model/api";
 import { normalizeMovieData } from "@/entities/Movie/model/selectors";
 import { useFetchData } from "@/shared/hooks/useFetchData";
 import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
 import { MoviesGridHorizontal } from "@/widgets/MoviesGridHorizontal";
 import { ArrowLink } from "@/shared/ui/ArrowLink";
 import { Button } from "@/shared/ui/Button";
+import { HeroBanner } from "@/widgets/HeroBanner";
 
 export default function MainPage() {
   const [activeTab, setActiveTab] = useState("movies");
+
+  const { data: randomMovies = [], loading: randomLoading } = useFetchData(
+  ({ signal }) => 
+    getRandomMovies(1, 1, { signal })
+      .then(raw => raw?.length ? raw : getPopularMovies(1, 1, { signal }))
+      .then(raw => raw.map(normalizeMovieData)),
+  [],
+  { initialData: [] }
+);
 
   const { data: movies = [], loading: moviesLoading, error: moviesError } = useFetchData(
     ({ signal }) => 
@@ -26,27 +40,33 @@ export default function MainPage() {
     { initialData: [] }
   );
 
+  const randomMovie = randomMovies[0];
+
   return (
     <div className="min-h-screen bg-white">
       <div className="container-custom py-[80px]">
         
+        {!randomLoading && randomMovie && (
+          <HeroBanner movie={randomMovie} className="mb-[80px]" />
+        )}
+        
         <div className="flex gap-[15px] mb-[40px]">
           <Button 
-            variant={activeTab === "movies" ? "primary" : "secondary"}
+            variant={activeTab === "movies" ? "secondary" : "notchosen"}
             size="md"
             onClick={() => setActiveTab("movies")}
           >
             Популярные фильмы
           </Button>
           <Button 
-            variant={activeTab === "series" ? "primary" : "secondary"}
+            variant={activeTab === "series" ? "secondary" : "notchosen"}
             size="md"
             onClick={() => setActiveTab("series")}
           >
             Популярные сериалы
           </Button>
           <Button 
-            variant={activeTab === "selection" ? "primary" : "secondary"}
+            variant={activeTab === "selection" ? "secondary" : "notchosen"}
             size="md"
             onClick={() => setActiveTab("selection")}
           >
