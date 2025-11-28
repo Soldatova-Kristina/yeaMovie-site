@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { favoritesStorage } from "./favoritesStorage";
 
-export function useFavorites() {
+export function useFavoriteIds() {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {

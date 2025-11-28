@@ -1,10 +1,10 @@
 import { SearchInput } from "../../../features/SearchMovie/ui/SearchInput";
 import { Logo } from "@/shared/ui/Logo";
 import { Link } from "react-router-dom";
-import { useFavorites } from "@/entities/Favorites/model/useFavorites";
+import { useFavoriteIds } from "@/features/FavoritesMovies/model/useFavoriteIds";
 
 export default function Header() {
-  const { favorites } = useFavorites();
+  const { favorites } = useFavoriteIds();
   const favCount = favorites.length;
 
   return (

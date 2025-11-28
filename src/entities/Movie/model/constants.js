@@ -98,3 +98,4 @@ export const SORT_OPTIONS = [
   { value: "year", label: "По году" },
   { value: "name", label: "По названию" },
 ];
+

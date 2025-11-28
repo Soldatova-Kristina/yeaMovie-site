@@ -1,25 +1,22 @@
 import { useState } from "react";
 
-export function useMovieFilters(initialFilters = {}) {
-  const [filters, setFilters] = useState({
+export function useFiltersState(initialFilters = {}) {
+  const defaultFilters = {
     genre: "",
     country: "",
     year: "",
     rating: "",
     sort: "rating.kp",
     sortOrder: "desc",
+  };
+
+  const [filters, setFilters] = useState({
+    ...defaultFilters,
     ...initialFilters,
   });
 
   const resetFilters = () => {
-    setFilters({
-      genre: "",
-      country: "",
-      year: "",
-      rating: "",
-      sort: "rating.kp",
-      sortOrder: "desc",
-    });
+    setFilters(defaultFilters);
   };
 
   return {

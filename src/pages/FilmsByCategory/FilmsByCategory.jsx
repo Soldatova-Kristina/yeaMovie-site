@@ -1,56 +1,51 @@
-import { getMoviesByFilters } from "@/entities/Movie/model/api";
-import { normalizeMovieData } from "@/entities/Movie/model/selectors";
-import { useFetchData } from "@/shared/lib/hooks/useFetchData";
-import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
-import { MoviesGridHorizontal } from "@/widgets/MoviesGridHorizontal";
+import { useSearchParams } from "react-router-dom";
+import { useMemo } from "react";
+
 import { MovieFilters } from "@/features/FilterMovies/ui/MovieFilters";
-import { useMovieFilters } from "@/features/FilterMovies/model/useMovieFilters";
-import { Button } from "@/shared/ui/Button";
+import { useFiltersState } from "@/features/FilterMovies/model/useFiltersState";
+import { useFilteredMovies } from "@/features/FilterMovies/model/useFilteredMovies";
+
+import { MoviesGridHorizontal } from "@/widgets/MoviesGridHorizontal";
+import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
+import { ArrowLink } from "@/shared/ui/ArrowLink";
 
 export default function FilmsByCategory() {
-  const { filters, setFilters } = useMovieFilters();
+  const [searchParams] = useSearchParams();
 
-  const { data: movies = [], loading, error } = useFetchData(
-    async ({ signal }) => {
-      const [ratingFrom, ratingTo] = filters.rating 
-        ? filters.rating.split("-").map(Number)
-        : [undefined, undefined];
-
-      const rawMovies = await getMoviesByFilters({
-        page: 1,
-        limit: 8,
-        genre: filters.genre || undefined,
-        country: filters.country || undefined,
-        year: filters.year || undefined,
-        ratingFrom,
-        ratingTo,
-        sortField: filters.sort,
-        sortOrder: filters.sortOrder,
-        signal,
-      });
-      
-      return rawMovies.map(normalizeMovieData);
-    },
-    [filters],
-    { initialData: [] }
+  const initialFilters = useMemo(
+    () => ({
+      genre: searchParams.get("genre") || "",
+      country: searchParams.get("country") || "",
+      year: searchParams.get("year") || "",
+      rating: searchParams.get("rating") || "",
+      sort: searchParams.get("sort") || "rating.kp",
+      sortOrder: searchParams.get("sortOrder") || "desc",
+    }),
+    [searchParams]
   );
+
+  const { filters, setFilters } = useFiltersState(initialFilters);
+
+  const { data: movies = [], loading, error } = useFilteredMovies(filters);
 
   return (
     <div className="min-h-screen bg-white">
       <div className="container-custom py-[80px]">
         
-        <div className="flex items-center justify-between mb-[40px]">
-          <Button variant="secondary" size="md" className="pointer-events-none">
-            Фильмы по категориям
-          </Button>
-        </div>
+        <h1 className="text-center text-[#0f0a33] text-[32px] font-medium mb-[60px]">
+          Фильмы по категориям
+        </h1>
+
+        <ArrowLink back direction="left" className="mb-[40px]">
+          Назад
+        </ArrowLink>
 
         <div className="mb-[40px]">
           <MovieFilters filters={filters} onChange={setFilters} />
         </div>
 
         <ErrorAndLoadingSection loading={loading} error={error}>
-          <MoviesGridHorizontal movies={movies} variant="4x1" />
+          <MoviesGridHorizontal movies={movies} variant="infinite" />
         </ErrorAndLoadingSection>
 
       </div>

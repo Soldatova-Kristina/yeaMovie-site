@@ -26,16 +26,16 @@ export function Dropdown({
 
   return (
     <div ref={dropdownRef} className={cn("relative", className)}>
-      <button
-        type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className={cn(
-          "w-full px-[20px] py-[12px] rounded-[50px] border border-[#E0E0E0]",
-          "bg-white text-[#0f0a33] text-[16px] font-normal",
-          "flex items-center justify-between gap-2",
-          "hover:border-[#0f0a33] transition-colors"
-        )}
-      >
+    <button
+  type="button"
+  onClick={() => setIsOpen(!isOpen)}
+  className={cn(
+    "w-full px-[20px] py-[12px] rounded-[50px] border border-[#E0E0E0]",
+    "text-[#080423] text-[16px] font-normal",
+    "flex items-center justify-between gap-2",
+    "hover:border-[#080423] transition-colors"
+  )}
+>
         <span className={cn(!selectedOption && "text-[#7a7a7a]")}>
           {selectedOption?.label || placeholder}
         </span>
