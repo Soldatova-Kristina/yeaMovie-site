@@ -1,5 +1,5 @@
 import { MovieCardVibe } from "@/widgets/MovieCardVibe";
-import { MOVIES_GRID_VARIANTS } from "@/entities/Movie/model/constants";
+import { MOVIES_GRID_VARIANTS } from "@/widgets/MovieGrid/constants";
 import { cn } from "@/shared/lib/utils";
 
 export function MoviesGridHorizontal({ 

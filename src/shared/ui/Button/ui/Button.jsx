@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils"
-import { BUTTON_VARIANTS, BUTTON_SIZES } from "@/entities/Movie/model/constants"
+import { BUTTON_VARIANTS, BUTTON_SIZES } from "@/shared/ui/Button/model/constants"
 
 export const Button = ({ 
   children, 

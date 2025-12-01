@@ -1,7 +1,7 @@
 import { useFavoriteIds } from "@/features/FavoritesMovies/model/useFavoriteIds";
 import { useLoadFavoriteMovies } from "@/features/FavoritesMovies/model/useLoadFavoriteMovies";
 import { FavoritesEmpty } from "@/features/FavoritesMovies/ui/FavoritesEmpty";
-import { MoviesGridVertical } from "@/widgets/MoviesGridVertical";
+import { MoviesGridVertical } from "@/widgets/MovieGrid/MoviesGridVertical";
 import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
 import { ArrowLink } from "@/shared/ui/ArrowLink";
 

@@ -1,19 +1,15 @@
-import { useFetchData } from "@/shared/hooks/useFetchData";
+import { useMovieListQuery } from "@/entities/Movie/model/hooks/useMovieListQuery";
 import { getMovieById } from "@/entities/Movie/model/api";
-import { normalizeMovieData } from "@/entities/Movie/model/selectors";
 
 export function useLoadFavoriteMovies(favorites) {
-  return useFetchData(
-    ({ signal }) => {
-      if (!favorites || favorites.length === 0) return Promise.resolve([]);
+  return useMovieListQuery(
+    async (signal) => {
+      if (!favorites || favorites.length === 0) return [];
 
-      const requests = favorites.map((id) =>
-        getMovieById(id, { signal }).then(normalizeMovieData)
-      );
-
+      const requests = favorites.map((id) => getMovieById(id, { signal }));
       return Promise.all(requests);
     },
     [favorites],
-    { initialData: [] }
+    { skip: !favorites || favorites.length === 0 }
   );
 }

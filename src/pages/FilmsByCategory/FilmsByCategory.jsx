@@ -5,7 +5,7 @@ import { MovieFilters } from "@/features/FilterMovies/ui/MovieFilters";
 import { useFiltersState } from "@/features/FilterMovies/model/useFiltersState";
 import { useFilteredMovies } from "@/features/FilterMovies/model/useFilteredMovies";
 
-import { MoviesGridHorizontal } from "@/widgets/MoviesGridHorizontal";
+import { MoviesGridHorizontal } from "@/widgets/MovieGrid/MoviesGridHorizontal";
 import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
 import { ArrowLink } from "@/shared/ui/ArrowLink";
 

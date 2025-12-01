@@ -2,7 +2,7 @@ import { useState } from "react";
 import { HeroBanner } from "@/widgets/HeroBanner";
 import { Button } from "@/shared/ui/Button";
 import { ArrowLink } from "@/shared/ui/ArrowLink";
-import { MoviesGridHorizontal } from "@/widgets/MoviesGridHorizontal";
+import { MoviesGridHorizontal } from "@/widgets/MovieGrid/MoviesGridHorizontal";
 import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
 import { MovieFilters } from "@/features/FilterMovies/ui/MovieFilters";
 import { useFiltersState } from "@/features/FilterMovies/model/useFiltersState";
@@ -69,7 +69,6 @@ export default function MainPage() {
           </section>
         )}
 
-        {/* filtered preview */}
         {activeTab === "selection" && (
           <section>
             <MovieFilters filters={filters} onChange={setFilters} />

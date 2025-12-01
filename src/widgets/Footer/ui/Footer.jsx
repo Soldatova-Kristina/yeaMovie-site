@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Logo } from "@/shared/ui/logo";
+import { Logo } from "@/shared/ui/Logo";
 
 export default function Footer() {
   const navLinks = [

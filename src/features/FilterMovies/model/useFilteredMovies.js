@@ -1,10 +1,9 @@
-import { useFetchData } from "@/shared/hooks/useFetchData";
+import { useMovieListQuery } from "@/entities/Movie/model/hooks/useMovieListQuery";
 import { getMoviesByFilters } from "@/entities/Movie/model/api";
-import { normalizeMovieData } from "@/entities/Movie/model/selectors";
 
 export function useFilteredMovies(filters) {
-  return useFetchData(
-    ({ signal }) => {
+  return useMovieListQuery(
+    (signal) => {
       const [ratingFrom, ratingTo] = filters.rating 
         ? filters.rating.split("-").map(Number)
         : [undefined, undefined];
@@ -20,9 +19,8 @@ export function useFilteredMovies(filters) {
         sortField: filters.sort,
         sortOrder: filters.sortOrder,
         signal,
-      }).then(rawMovies => rawMovies.map(normalizeMovieData));
+      });
     },
-    [filters],
-    { initialData: [] }
+    [filters]
   );
 }

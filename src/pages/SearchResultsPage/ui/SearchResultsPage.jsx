@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useSearchMovie } from "@/features/SearchMovie/model/useSearchMovie";
-import { MoviesGridVertical } from "@/widgets/MoviesGridVertical";
+import { MoviesGridVertical } from "@/widgets/MovieGrid/MoviesGridVertical";
 import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
 import { ArrowLink } from "@/shared/ui/ArrowLink";
 

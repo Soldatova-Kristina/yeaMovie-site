@@ -1,29 +1,20 @@
+import { useMovieListQuery } from "@/entities/Movie/model/hooks/useMovieListQuery";
 import { getMoviesByQuery } from "@/entities/Movie/model/api";
-import { normalizeMovieData } from "@/entities/Movie/model/selectors";
-import { useFetchData} from "@/shared/hooks/useFetchData";
 import { useDebounce } from "@/shared/hooks/useDebounce";
-import { getMovieById } from "@/entities/Movie/model/api";
 
 export function useSearchMovie(query) {
   const debouncedQuery = useDebounce(query, 500);
 
-  const { data: movies, loading, error } = useFetchData(
-    ({ signal }) => {
+  const { data: movies, loading, error } = useMovieListQuery(
+    (signal) => {
       if (!debouncedQuery?.trim()) return Promise.resolve([]);
-
-      return getMoviesByQuery(debouncedQuery, 1, 10, { signal })
-        .then(raw => Promise.all(
-          raw.map(async (item) => {
-            const id = item.id;
-
-            const full = await getMovieById(id, { signal });
-
-            return normalizeMovieData(full);
-          })
-        ));
+      return getMoviesByQuery(debouncedQuery, 1, 10, { signal });
     },
     [debouncedQuery],
-    { initialData: [] }
+    { 
+      skip: !debouncedQuery?.trim(),
+      fetchDetails: true 
+    }
   );
 
   return { movies, loading, error };

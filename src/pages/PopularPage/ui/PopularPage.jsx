@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { ErrorAndLoadingSection } from "@/shared/ui/PageStatus";
-import { MoviesGridHorizontal } from "@/widgets/MoviesGridHorizontal";
+import { MoviesGridHorizontal } from "@/widgets/MovieGrid/MoviesGridHorizontal";
 import { ArrowLink } from "@/shared/ui/ArrowLink";
 import { useLoadPopular } from "@/features/PopularMovies/model/useLoadPopular";
 
