@@ -11,6 +11,7 @@ export const normalizeMovieData = (raw) => {
       rating: null,
       imdbRating: null,
       description: "",
+      shortDescription: "",
       genres: [],
       countries: [],
       director: [],
@@ -38,24 +39,51 @@ export const normalizeMovieData = (raw) => {
     ? raw.countries.map(c => c?.name).filter(Boolean)
     : [];
 
+  const budget = raw.budget
+    ? {
+        value: raw.budget.value ?? null,
+        currency: raw.budget.currency ?? null,
+      }
+    : null;
+
+  const fees = raw.fees?.world
+    ? {
+        world: {
+          value: raw.fees.world.value ?? "null",
+          currency: raw.fees.world.currency ?? null,
+        },
+      }
+    : null;
+
+  console.log("Fees:", fees);
+  console.log("Budget:", budget);
+    
   return {
-    id: raw.id,
-    title: raw.name || raw.alternativeName || "Без названия",
-    originalTitle: raw.enName || "",
-    year: raw.year || raw.releaseYears?.[0]?.start || null,
-    poster:
-      raw.poster?.url ||
-      raw.poster?.previewUrl ||
-      MOVIE_FALLBACK_POSTER,
-    rating: raw.rating?.kp ?? null,
-    imdbRating: raw.rating?.imdb ?? null,
-    description: raw.description || raw.shortDescription || "",
-    genres,
-    countries,
-    director: directors,
-    actors: actors.slice(0, 7), 
-  };
+  id: raw.id,
+  title: raw.name || raw.alternativeName || "Без названия",
+  originalTitle: raw.enName || "",
+  year: raw.year || raw.releaseYears?.[0]?.start || null,
+
+  poster:
+    raw.poster?.url ||
+    raw.poster?.previewUrl ||
+    MOVIE_FALLBACK_POSTER,
+
+  rating: raw.rating?.kp ?? null,
+  imdbRating: raw.rating?.imdb ?? null,
+
+  description: raw.description || "",
+  shortDescription: raw.shortDescription || "",
+
+  genres,
+  countries,
+  director: directors,
+  actors: actors.slice(0, 4),
+
+  budget,
+  fees,
 };
+}
 
 export const normalizeStillsData = (raw) => {
 if (!raw || typeof raw !== "object") {
@@ -77,3 +105,4 @@ if (!raw || typeof raw !== "object") {
   type: raw.type,
 }
 }
+

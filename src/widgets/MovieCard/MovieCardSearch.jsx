@@ -2,6 +2,8 @@ import { MoviePoster } from "@/entities/Movie/ui/MoviePoster";
 import { MovieDescription } from "@/entities/Movie/ui/MovieDescription";
 import { MovieCardHeader } from "./MovieCardHeader";
 import { MovieCardActions } from "./MovieCardActions";
+import { MovieMeta } from "@/entities/Movie/ui/MovieMeta";
+
 import { cn } from "@/shared/lib/utils";
 
 export function MovieCardSearch({ movie, className }) {
@@ -11,7 +13,12 @@ export function MovieCardSearch({ movie, className }) {
     poster,
     rating,
     imdbRating,
-    description,
+    shortDescription,
+    genres = [],
+    countries = [],
+    year,
+    director = [],
+    actors = [],
   } = movie;
 
   return (
@@ -21,13 +28,22 @@ export function MovieCardSearch({ movie, className }) {
       <div className="flex-1 flex flex-col">
         <MovieCardHeader title={title} rating={rating} imdbRating={imdbRating} />
 
-        {description && (
+       {shortDescription && (
           <MovieDescription
-            description={description}
+            shortDescription={shortDescription}
             variant="black"
             className="mb-[30px] line-clamp-4"
           />
-        )}
+       )}
+       
+       <MovieMeta
+          genre={genres.join(", ")}
+          country={countries.join(", ")}
+          year={year}
+          director={director.join(", ")}
+          actors={actors.join(", ")}
+          showExtended={false}
+        />
 
         <MovieCardActions id={id} />
       </div>
