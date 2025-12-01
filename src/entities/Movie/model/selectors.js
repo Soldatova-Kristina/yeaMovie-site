@@ -69,8 +69,8 @@ export const normalizeMovieData = (raw) => {
     raw.poster?.previewUrl ||
     MOVIE_FALLBACK_POSTER,
 
-  rating: raw.rating?.kp ?? null,
-  imdbRating: raw.rating?.imdb ?? null,
+  rating: raw.rating?.kp != null ? Number(raw.rating.kp.toFixed(1)) : null,
+  imdbRating: raw.rating?.imdb != null ? Number(raw.rating.imdb.toFixed(1)) : null,
 
   description: raw.description || "",
   shortDescription: raw.shortDescription || "",
