@@ -54,9 +54,6 @@ export const normalizeMovieData = (raw) => {
         },
       }
     : null;
-
-  console.log("Fees:", fees);
-  console.log("Budget:", budget);
     
   return {
   id: raw.id,
