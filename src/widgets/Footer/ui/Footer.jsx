@@ -7,7 +7,6 @@ export default function Footer() {
     { path: "/popular/series", label: "Популярные сериалы" },
     { path: "/favorites", label: "Избранное" },
   ];
-
   return (
     <footer className="bg-[#080423] w-full">
       <div className="flex flex-row max-w-[1440px] h-[198px] items-center pl-[92px]">
