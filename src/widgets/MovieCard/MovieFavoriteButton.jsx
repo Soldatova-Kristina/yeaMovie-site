@@ -7,7 +7,7 @@ export function MovieFavoriteButton({ movieId }) {
 
   return (
     <Button variant="outlined" size="sm" onClick={() => toggleFavorite(movieId)}>
-      {isFav ? "В избранном" : "В избранное"}
+      {isFav ? "Удалить" : "В избранное"}
     </Button>
   );
 }
