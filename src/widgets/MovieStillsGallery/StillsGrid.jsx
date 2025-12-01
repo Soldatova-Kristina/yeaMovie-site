@@ -1,6 +1,6 @@
 import { MovieStills } from "@/entities/Movie/ui/MovieStills";
 
-export function StillsGrid({ stills, movieTitle }) {
+export function StillsGrid({ stills, movieTitle, onStillClick }) {
   return (
     <div className="grid grid-cols-3 gap-x-[15px] gap-y-[15px] mb-[30px]">
       {stills.map((still, index) => (
@@ -8,6 +8,7 @@ export function StillsGrid({ stills, movieTitle }) {
           key={still.id || `fallback-${index}`}
           src={still.url}
           alt={`${movieTitle} - кадр ${index + 1}`}
+          onClick={() => onStillClick?.(index)}
         />
       ))}
     </div>

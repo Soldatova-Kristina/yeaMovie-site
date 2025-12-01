@@ -3,7 +3,7 @@ import { getMovieStills } from "@/entities/Movie/model/api";
 import { normalizeStillsData } from "@/entities/Movie/model/selectors";
 
 export function useMovieStills(movieId, showAll) {
-  const limit = showAll ? 21 : 6;
+  const limit = showAll ? 12 : 6;
 
   const { data: stills = [], loading, error } = useFetchData(
     ({ signal }) => {

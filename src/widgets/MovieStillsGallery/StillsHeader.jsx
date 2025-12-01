@@ -1,6 +1,4 @@
-import { ArrowLink } from "@/shared/ui/ArrowLink";
-
-export function StillsHeader({ movieId, showAll }) {
+export function StillsHeader({ onShowAll }) {
   return (
     <>
       <div className="flex justify-center mb-[30px]">
@@ -9,13 +7,23 @@ export function StillsHeader({ movieId, showAll }) {
         </h2>
       </div>
 
-      {!showAll && (
-        <div className="flex justify-end mb-[20px]">
-          <ArrowLink to={`/movie/${movieId}/stills`} direction="right">
-            Смотреть всё
-          </ArrowLink>
-        </div>
-      )}
+      <div className="flex justify-end mb-[20px]">
+        <button
+          onClick={onShowAll}
+          className="text-[#0f0a33] text-[18px] font-medium hover:underline flex items-center gap-2"
+        >
+          Смотреть всё
+          <svg width="8" height="12" viewBox="0 0 8 12" fill="none">
+            <path
+              d="M1 1L6 6L1 11"
+              stroke="#0f0a33"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
     </>
   );
 }
