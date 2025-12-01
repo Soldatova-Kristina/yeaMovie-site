@@ -10,7 +10,8 @@ export function SortButtons({ value, onChange }) {
           className={cn(
             "w-[40px] h-[40px] rounded-full border border-[#E0E0E0] flex items-center justify-center",
             "hover:border-[#080423] transition-colors",
-            value === type && "bg-[#080423] text-white"
+            "text-[#080423]",                     
+            value === type && "bg-[#080423] text-white" 
           )}
         >
           {type === "desc" ? "↑" : "↓"}
