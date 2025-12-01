@@ -10,7 +10,7 @@ export function MovieStillsGallery({ movieId, movieTitle }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const { stills: previewStills, loading, error } = useMovieStills(movieId, 6);
-  const { stills: allStills, loading: loadingAll } = useMovieStills(movieId, 21);
+  const { stills: allStills, loading: loadingAll } = useMovieStills(movieId, 12);
 
   if (!movieId) return null;
 

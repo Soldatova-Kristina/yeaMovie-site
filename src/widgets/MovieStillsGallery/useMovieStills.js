@@ -2,9 +2,7 @@ import { useFetchData } from "@/shared/hooks/useFetchData";
 import { getMovieStills } from "@/entities/Movie/model/api";
 import { normalizeStillsData } from "@/entities/Movie/model/selectors";
 
-export function useMovieStills(movieId, showAll) {
-  const limit = showAll ? 12 : 6;
-
+export function useMovieStills(movieId, limit = 6) {
   const { data: stills = [], loading, error } = useFetchData(
     ({ signal }) => {
       if (!movieId) return Promise.resolve([]);
@@ -12,20 +10,13 @@ export function useMovieStills(movieId, showAll) {
       return getMovieStills(movieId, 1, limit, { signal })
         .then(images => images.map(normalizeStillsData));
     },
-    [movieId, showAll],
+    [movieId, limit],
     { initialData: [] }
   );
 
-  const placeholders = Array(Math.max(0, limit - stills.length)).fill({});
-  const filledStills = [
-    ...stills,
-    ...placeholders.map(normalizeStillsData),
-  ];
-
   return {
-    stills: filledStills,
+    stills,  
     loading,
     error,
-    limit
   };
 }

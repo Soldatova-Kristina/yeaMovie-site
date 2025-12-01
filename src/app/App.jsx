@@ -1,4 +1,3 @@
-// src/app/App.jsx
 import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Layout from "@/shared/ui/Layout";
